@@ -53,6 +53,20 @@ Usando o console ou terminal de sua preferencia va ate ``/`` e execute o seguint
 ```php
 php artisan migrate
 ```
+Esse comando ira criar as tabelas no banco de dados
+
+Agora para criar os registros nas tabelas execute o seguinte comando
+```php
+php artisan db:seed
+```
+
+Caso aconteca de aparecer o erro que diz que a tabela nao existe execute o seguinte comando e em seguida execute o comando anterior
+```php
+composer dump-autoload
+```
+
+
+
 
 
 
