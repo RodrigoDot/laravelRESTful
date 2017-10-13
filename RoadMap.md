@@ -1,5 +1,6 @@
 # Aprendendo a criar uma API RESTful usando Laravel e Angular4
 
+<link rel="stylesheet" href="https://use.fontawesome.com/0b45c1657d.css" />
 
 ## Requerimentos
 
@@ -47,7 +48,7 @@ php artisan make:seed BanksTableSeeder
 Agora va para ``/app/database/seeds``, encontre o arquivo que voce criou e edite.
 
 
-## Utilizando as tabelas de Migration e as Seeds
+## Utilizando as tabelas de Migration e as Seeds para gerar as tabelas e registros no banco de dados
 
 Usando o console ou terminal de sua preferencia va ate ``/`` e execute o seguinte comando
 ```php
@@ -64,6 +65,38 @@ Caso aconteca de aparecer o erro que diz que a tabela nao existe execute o segui
 ```php
 composer dump-autoload
 ```
+
+
+## Criando o CRUD
+
+Usando o console ou terminal de sua preferencia va ate ``/`` e execute o seguinte comando
+```php
+php arisan make:controller Api/BanksController --resource
+```
+Agora va ate ``/app/http/controllers/api`` e encontre o arquivo que voce criou.
+
+
+## Criando uma rota
+
+Va para ``/routes/web.php`` e adicione o seguinte codigo
+```php
+Route::resource('/banks', 'Api\BanksController');
+```
+Agora utilizando o terminal ou console va ate ``/`` e execute o seguinte comando
+```php
+php artisan serve
+```
+Agora utilizando o browser acesse ``localhost:8000/banks`` e voce vera uma pagina em branco
+
+
+## Criando uma Model
+
+Usando o console ou terminal de sua preferencia va ate ``/`` e execute o seguinte comando
+```php
+php artisan make:model Banks
+```
+
+
 
 
 
