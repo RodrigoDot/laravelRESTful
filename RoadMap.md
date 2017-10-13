@@ -97,6 +97,36 @@ php artisan make:model Banks
 ```
 
 
+## Acessando o banco de dados
+
+Va ate ``/app/http/controllers/api/BanksController``, dentro da action 'index' digite o seguinte codigo
+```php
+$data = \App\Bank::paginate();
+return response()->json($data);
+```
+Acima acessamos a model ``Bank`` e utilizamos o metodo ``paginate()`` para fazer um select no banco e retornar os registros encontrados de forma organizada atribuindo esse resultado a variavel ``$data``.
+
+Depois retornamos esses dados em formato json utilizando o metodo ``response()`` e o metodo ``json()`` passando a variavel ``$data`` para formatar os dados.
+
+
+
+
+
+
+### REQUISICOES
+
+* requisicao get com limitador
+``/bank?limit=10``
+* requisicao get com ordenacao
+``/banks?id,asc``
+``/banks?id,desc``
+``/banks?code,asc``
+``/banks?code,desc``
+* requisicao get combinada limite e ordenacao
+``/bank?limit=10&order=id,desc``
+
+
+
 
 
 
