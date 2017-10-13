@@ -29,4 +29,10 @@ DB_PASSWORD=
 ```
 
 
-## 
+## Criando as tabelas de Migration
+
+Usando o console ou terminal de sua preferencia va ate ``/`` e execute o seguinte comando
+```php
+php artisan make:migration create_account
+```
+Agora va para ``/app/database/migrations``, encontre o arquivo que voce criou e edite
