@@ -35,4 +35,45 @@ Usando o console ou terminal de sua preferencia va ate ``/`` e execute o seguint
 ```php
 php artisan make:migration create_account
 ```
-Agora va para ``/app/database/migrations``, encontre o arquivo que voce criou e edite
+Agora va para ``/app/database/migrations``, encontre o arquivo que voce criou e edite. Voce pode utilizar os exemplos que ja vem com o esqueleto do Laravel ou pesquisar na documentacao oficial como criar os seus arquivos de migrations. Repita o processo para todas as tabelas que voce ira utilizar
+
+
+## Criando as Seeds
+
+Usando o console ou terminal de sua preferencia va ate ``/`` e execute o seguinte comando
+```php
+php artisan make:seed BanksTableSeeder
+```
+Agora va para ``/app/database/seeds``, encontre o arquivo que voce criou e edite.
+
+
+## Utilizando as tabelas de Migration e as Seeds
+
+Usando o console ou terminal de sua preferencia va ate ``/`` e execute o seguinte comando
+```php
+php artisan migrate
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+x
