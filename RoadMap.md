@@ -211,8 +211,17 @@ Que podem ser passados na area de 'headers' do POSTMAN. E ainda e necessario pas
 Para atualizar os dados fazemos basicamente o mesmo processo de quando estamos inserindo dados no banco, a diferenca e que aqui utilizamos o metodo htttp PUT e passamos o id do registro a ser atualizado. No mais todos os procedimentos sao os mesmos que na insercao de dados. Cabecalhos e dados continuam sendo necessarios em ambos os metodos 'raw' e 'urlencoded'.
 
 
+#### DELETE
 
+* requisicao delete para deletar dados no banco de dados
+``api/banks/2``  >> prefixo/controller/id
 
+Para deletar dados do banco utilizamos o metodo http delete. Aqui junto com a url so precisamos passar o cabecalho  
+```js
+[
+  {"key":"Content-Type","value":"application/json"}
+]
+```
 
 
 
