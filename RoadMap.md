@@ -148,12 +148,12 @@ return response()->json(['status' => 'registro deletado']);
 Acima acessamos a model ``Bank`` e utilizamos o metodo ``delete()`` passando o id do registro que deve ser deletado como parametro. Por fim retornamos uma mensagem com status.
 
 
-## Ate ja temos todo o nosso CRUD funcionando
+## Ate aqui ja temos todo o nosso CRUD funcionando
 
 
 ## Criando uma Trait
 
-Uma Trait e uma classe que pode ser carregada dentro de outra classe sem precisar ser extendida. Uma vez carregada dentro da classe utilizando o namespace ``use`` e possivel utilizar todos os metodos disponiveis na Trait.
+Uma Trait e uma classe que pode ser carregada dentro de outra classe sem precisar ser extendida. Uma vez carregada dentro da classe utilizando o namespace ``use`` e possivel utilizar todos os metodos disponiveis na Trait. Dessa forma podemos criar uma unica classe com os metodos do nosso CRUD e carrega-la em todos os nossos controllers modificando somente a model que sera utilizada. Fazermos isso durante o carregamento da Trait ao criar o ``__construct`` da classe que vai importar a Trait.
 
 Va ate ``/app/http/controllers/api/BanksController`` e recorte todo o codigo interno a classe, o arquivo tem que ficar assim:
 ```php
