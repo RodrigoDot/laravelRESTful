@@ -148,7 +148,51 @@ return response()->json(['status' => 'registro deletado']);
 Acima acessamos a model ``Bank`` e utilizamos o metodo ``delete()`` passando o id do registro que deve ser deletado como parametro. Por fim retornamos uma mensagem com status.
 
 
+## Ate ja temos todo o nosso CRUD funcionando
 
+
+## Criando uma Trait
+
+Uma Trait e uma classe que pode ser carregada dentro de outra classe sem precisar ser extendida. Uma vez carregada dentro da classe utilizando o namespace ``use`` e possivel utilizar todos os metodos disponiveis na Trait.
+
+Va ate ``/app/http/controllers/api/BanksController`` e recorte todo o codigo interno a classe, o arquivo tem que ficar assim:
+```php
+
+namespace App\Http\Controllers\Api;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class BanksController extends Controller
+{
+  //nada aqui
+}
+```
+
+Agora crie um novo aquivo chamado ``ApiControllerTrait.php`` em ``/app/http/controllers``. Declare o namespace ``App\Http\Controllers``, carregue o http request ``Illuminate\Http\Request`` e  declare um trait com o mesmo nome do arquivo:
+```php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+trait ApiControllerTrait {}
+```
+Dentro dessa classe cole todo o codigo que foi recortado anteriormente do arquivo ``app/http/controllers/api/BanksController.php``. Agora substituia todas as chamadas da model como essa ``\App\Bank`` para ``$this->model``.
+
+Va ate ``app/http/controllers/api/BanksController.php`` e adicione o seguinte codigo dentro da classe:
+```php
+
+use \App\Http\Controllers\ApiControllerTrait; //soh pra garantir. Isso e dentro das "{}" da classe
+
+protected $model;
+
+public function __construct(\App\Bank $model) {
+
+  $this->model = $model;
+
+}
+```
 
 
 
