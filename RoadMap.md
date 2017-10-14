@@ -88,6 +88,14 @@ php artisan serve
 ```
 Agora utilizando o browser acesse ``localhost:8000/banks`` e voce vera uma pagina em branco
 
+Precisamos tambem criar a rora que sera utilizada para a Api
+Va para ``/routes/api.php`` e adicione o seguinte codigo
+```php
+Route::resource('/banks', 'Api\BanksController');
+```
+para accessar essa rota basta utilizar ``/api/banks`` no browser
+
+
 
 ## Criando uma Model
 
@@ -109,11 +117,20 @@ Acima acessamos a model ``Bank`` e utilizamos o metodo ``paginate()`` para fazer
 Depois retornamos esses dados em formato json utilizando o metodo ``response()`` e o metodo ``json()`` passando a variavel ``$data`` para formatar os dados.
 
 
+## Salvando dados no banco de dados
 
+Va ate ``/app/http/controllers/api/BanksController``, dentro da action 'store' digite o seguinte codigo
+```php
+$data = \App\Bank::create($request->all());
+return response()->json($data);
+```
+Acima acessamos a model ``Bank`` e utilizamos o metodo ``create()`` para salvar no banco os valores passados como parametro, no caso passamos como parametro todos os dados que vieram na requisicao ``$request`` utilizando o metodo ``all()``. Por fim retornamos os dados em formato json, essa ultima parte serve somente para as etapas de desenvolvimento.
 
 
 
 ### REQUISICOES
+
+#### GET
 
 * requisicao get com limitador
 ``/bank?limit=10``
@@ -132,6 +149,12 @@ Depois retornamos esses dados em formato json utilizando o metodo ``response()``
 
 * requisicao get usando like
 ``/banks?like=title,teste`` >> like=campo,valor
+
+#### POST
+
+* requisicao post para inserir um banco
+``/api/banks``
+Utilizando o POSTMAN basta selecionar a opcao 'POST' e o formato de envio 'x-www-form-urlencoded' e depois preencher os campos chave = valor na opcao 'BODY'
 
 
 
