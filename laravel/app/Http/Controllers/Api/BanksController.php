@@ -16,18 +16,34 @@ class BanksController extends Controller
     {
         $limit = $request->all()['limit'] ?? 15; //adiciona um limitado a quantidade de registros retornados
 
-        $order = $request->all()['order'] ?? null; //ordena os registros
-
+        //ordena os registros
+        $order = $request->all()['order'] ?? null;
         // transforma o valor de $order em um array se ele for diferente de null
         if($order !== null) {
           $order = explode(',', $order);
         }
-
         // define os valores do array
         $order[0] = $order[0] ?? 'id';
         $order[1] = $order[1] ?? 'asc';
 
+        // define um campo especifico a ser pesquisado
+        $where = $request->all()['where'] ?? [];
+
+        //define uma expressao a ser pesquisada
+        $like = $request->all()['like'] ?? null;
+        if($like) {
+          $like = explode(',', $like);
+          $like[1] = '%' . $like[1] . '%';
+        }
+
         $data = \App\Bank::orderBy($order[0], $order[1])
+          ->where(function($query) use ($like) {
+            if($like) {
+              return $query->where($like[0], 'like', $like[1]);
+            }
+            return $query;
+          })
+          ->where($where)
           ->paginate($limit);
         return response()->json($data);
     }

@@ -117,13 +117,21 @@ Depois retornamos esses dados em formato json utilizando o metodo ``response()``
 
 * requisicao get com limitador
 ``/bank?limit=10``
+
 * requisicao get com ordenacao
-``/banks?id,asc``
+``/banks?id,asc`` >> campo,ordem
 ``/banks?id,desc``
 ``/banks?code,asc``
 ``/banks?code,desc``
+
 * requisicao get combinada limite e ordenacao
 ``/bank?limit=10&order=id,desc``
+
+* requisicao get por campo especifico (where)
+``/banks?where[id]=2``  >> where[campo]=valor
+
+* requisicao get usando like
+``/banks?like=title,teste`` >> like=campo,valor
 
 
 
