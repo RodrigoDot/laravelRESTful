@@ -96,7 +96,13 @@ class BanksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+      $data = \App\Bank::findOrFail($id);
+
+      $data->update($request->all());
+
+      return response()->json($data);
+
     }
 
     /**

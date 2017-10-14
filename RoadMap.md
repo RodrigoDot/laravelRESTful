@@ -127,6 +127,15 @@ return response()->json($data);
 Acima acessamos a model ``Bank`` e utilizamos o metodo ``create()`` para salvar no banco os valores passados como parametro, no caso passamos como parametro todos os dados que vieram na requisicao ``$request`` utilizando o metodo ``all()``. Por fim retornamos os dados em formato json, essa ultima parte serve somente para as etapas de desenvolvimento.
 
 
+## Editando e atualizando dados do banco de dados
+
+Va ate ``/app/http/controllers/api/BanksController``, dentro da action 'store' digite o seguinte codigo
+```php
+$data = \App\Bank::findOrFail($id);
+$data->update($request->all());
+return response()->json($data);
+```
+Acima acessamos a model ``Bank`` e utilizamos o metodo ``findOrFail($id)`` para procurar no banco somente o registro com o id em questao. Depois utilizamos o metodo ``update()`` para atualizar os dados no banco com todos os dados que foram passados como parametro ``($request->all())`` que no caso foram todos os dados contidos em ``$request``, o metodo ``all()`` ja e bastante conhecido nosso, ele retorna todos os valores da ``$request``. Por fim retornamos os dados em formato json para fins de teste durante o desenvolvimento.
 
 
 
@@ -167,7 +176,7 @@ Acima acessamos a model ``Bank`` e utilizamos o metodo ``create()`` para salvar 
 #### POST
 
 * requisicao post para inserir um banco
-``/api/banks``
+``/api/banks``  >> prefixo/controller
 Opcao 1 - Utilizando o POSTMAN basta selecionar a opcao 'POST' e o formato de envio 'x-www-form-urlencoded' e depois preencher os campos que devem ser salvos no banco de dados Utilizando as opcoes chave = valor na opcao 'BODY' do POSTMAN.
 
 Opcao 2 - Utilizando o POSTMAN basta selecionar a opcao 'POST' e o formato de envio 'raw'. Nesse metodo e necessario passar os cabecalhos
@@ -185,6 +194,12 @@ Que podem ser passados na area de 'headers' do POSTMAN. E ainda e necessario pas
 }
 ```
 
+#### PUT
+
+* requisicao put para atualizacao de dados no banco de dados
+``/api/banks/2``  >> prefixo/controller/id
+
+Para atualizar os dados fazemos basicamente o mesmo processo de quando estamos inserindo dados no banco, a diferenca e que aqui utilizamos o metodo htttp PUT e passamos o id do registro a ser atualizado. No mais todos os procedimentos sao os mesmo que na insercao de dados. Cabecalhos e dados continuam sendo necessarios em ambos os metodos 'raw' e 'urlencoded'.
 
 
 
