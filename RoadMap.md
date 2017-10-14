@@ -195,6 +195,27 @@ public function __construct(\App\Bank $model) {
 ```
 
 
+## Adicionando relacionamento entre models
+
+Va para ``app/Account.php`` digite o seguinte codigo:
+```php
+public function bank() {
+  return $this->belongsTo('App\Bank');
+}
+```
+Acima criamos uma funcao com o nome da model que queremos relacionar ``Bank``. Como resultado da funcao retornamos a model em questao atraves do metodo ``belongsTo()`` passando a model como parametro ``\App\Bank``.
+
+Agora quando formos fazer requisicoes no banco onde exista um relacionamento entre essas duas models utilizaremos o metodo ``with()`` para retornar os registros referentes a essa relacao. Por exemplo:
+```php
+public function show($id)
+{
+  $data = $this->model->with(['bank'])->findOrFail($id);
+
+    return response()->json($data);
+}
+```  
+Utilizamos ``with(['bank'])`` para executar a funcao ``bank`` criada na model ``Account`` e assim retornar os dados da relacao.  
+
 
 ### REQUISICOES
 
