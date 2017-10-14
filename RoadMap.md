@@ -128,9 +128,23 @@ Acima acessamos a model ``Bank`` e utilizamos o metodo ``create()`` para salvar 
 
 
 
+
+
+
+
+
+
+
+
 ### REQUISICOES
 
 #### GET
+
+* requisicao get para listas dados utilizando a action index
+``/banks``
+
+* requisicao get para visualizar apenas um registro utilizando a action show
+``/banks/2``  >>  controller/id
 
 * requisicao get com limitador
 ``/bank?limit=10``
@@ -154,7 +168,22 @@ Acima acessamos a model ``Bank`` e utilizamos o metodo ``create()`` para salvar 
 
 * requisicao post para inserir um banco
 ``/api/banks``
-Utilizando o POSTMAN basta selecionar a opcao 'POST' e o formato de envio 'x-www-form-urlencoded' e depois preencher os campos chave = valor na opcao 'BODY'
+Opcao 1 - Utilizando o POSTMAN basta selecionar a opcao 'POST' e o formato de envio 'x-www-form-urlencoded' e depois preencher os campos que devem ser salvos no banco de dados Utilizando as opcoes chave = valor na opcao 'BODY' do POSTMAN.
+
+Opcao 2 - Utilizando o POSTMAN basta selecionar a opcao 'POST' e o formato de envio 'raw'. Nesse metodo e necessario passar os cabecalhos
+```js
+[
+  {"key":"Accept","value":"application/json"},
+  {"key":"Content-Type","value":"application/json"}
+]
+```
+Que podem ser passados na area de 'headers' do POSTMAN. E ainda e necessario passar os dados atraves do 'BODY' em formato json
+```js
+{
+  "title": "Banco Json",
+  "code": 200
+}
+```
 
 
 
