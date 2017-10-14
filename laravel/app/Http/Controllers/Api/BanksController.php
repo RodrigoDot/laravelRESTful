@@ -14,7 +14,8 @@ class BanksController extends Controller
      */
     public function index(Request $request)
     {
-        $limit = $request->all()['limit'] ?? 15; //adiciona um limitado a quantidade de registros retornados
+        //adiciona um limitado a quantidade de registros retornados
+        $limit = $request->all()['limit'] ?? 15;
 
         //ordena os registros
         $order = $request->all()['order'] ?? null;
@@ -77,18 +78,9 @@ class BanksController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $data = \App\Bank::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($data);
     }
 
     /**
