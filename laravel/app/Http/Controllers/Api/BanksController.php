@@ -67,7 +67,11 @@ class BanksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+      $data = \App\Bank::create($request->all());
+
+      return response()->json($data);
+
     }
 
     /**
