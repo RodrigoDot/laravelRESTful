@@ -113,6 +113,9 @@ class BanksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \App\Bank::destroy($id);
+
+        return response()->json(['status' => 'resgistro deletado']);
+
     }
 }

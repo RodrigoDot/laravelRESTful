@@ -105,7 +105,7 @@ php artisan make:model Banks
 ```
 
 
-## Acessando o banco de dados
+## Acessando o banco de dados **GET**
 
 Va ate ``/app/http/controllers/api/BanksController``, dentro da action 'index' digite o seguinte codigo
 ```php
@@ -117,7 +117,7 @@ Acima acessamos a model ``Bank`` e utilizamos o metodo ``paginate()`` para fazer
 Depois retornamos esses dados em formato json utilizando o metodo ``response()`` e o metodo ``json()`` passando a variavel ``$data`` para formatar os dados.
 
 
-## Salvando dados no banco de dados
+## Salvando dados no banco de dados **POST**
 
 Va ate ``/app/http/controllers/api/BanksController``, dentro da action 'store' digite o seguinte codigo
 ```php
@@ -127,7 +127,7 @@ return response()->json($data);
 Acima acessamos a model ``Bank`` e utilizamos o metodo ``create()`` para salvar no banco os valores passados como parametro, no caso passamos como parametro todos os dados que vieram na requisicao ``$request`` utilizando o metodo ``all()``. Por fim retornamos os dados em formato json, essa ultima parte serve somente para as etapas de desenvolvimento.
 
 
-## Editando e atualizando dados do banco de dados
+## Editando e atualizando dados do banco de dados **PUT**
 
 Va ate ``/app/http/controllers/api/BanksController``, dentro da action 'store' digite o seguinte codigo
 ```php
@@ -138,7 +138,14 @@ return response()->json($data);
 Acima acessamos a model ``Bank`` e utilizamos o metodo ``findOrFail($id)`` para procurar no banco somente o registro com o id em questao. Depois utilizamos o metodo ``update()`` para atualizar os dados no banco com todos os dados que foram passados como parametro ``($request->all())`` que no caso foram todos os dados contidos em ``$request``, o metodo ``all()`` ja e bastante conhecido nosso, ele retorna todos os valores da ``$request``. Por fim retornamos os dados em formato json para fins de teste durante o desenvolvimento.
 
 
+## Deletando dados no banco de dados **DELETE**
 
+Va ate ``/app/http/controllers/api/BanksController``, dentro da action 'delete' digite o seguinte codigo
+```php
+\App\Bank::destroy($id);
+return response()->json(['status' => 'registro deletado']);
+```
+Acima acessamos a model ``Bank`` e utilizamos o metodo ``delete()`` passando o id do registro que deve ser deletado como parametro. Por fim retornamos uma mensagem com status.
 
 
 
@@ -173,6 +180,7 @@ Acima acessamos a model ``Bank`` e utilizamos o metodo ``findOrFail($id)`` para 
 * requisicao get usando like
 ``/banks?like=title,teste`` >> like=campo,valor
 
+
 #### POST
 
 * requisicao post para inserir um banco
@@ -194,12 +202,16 @@ Que podem ser passados na area de 'headers' do POSTMAN. E ainda e necessario pas
 }
 ```
 
+
 #### PUT
 
 * requisicao put para atualizacao de dados no banco de dados
 ``/api/banks/2``  >> prefixo/controller/id
 
-Para atualizar os dados fazemos basicamente o mesmo processo de quando estamos inserindo dados no banco, a diferenca e que aqui utilizamos o metodo htttp PUT e passamos o id do registro a ser atualizado. No mais todos os procedimentos sao os mesmo que na insercao de dados. Cabecalhos e dados continuam sendo necessarios em ambos os metodos 'raw' e 'urlencoded'.
+Para atualizar os dados fazemos basicamente o mesmo processo de quando estamos inserindo dados no banco, a diferenca e que aqui utilizamos o metodo htttp PUT e passamos o id do registro a ser atualizado. No mais todos os procedimentos sao os mesmos que na insercao de dados. Cabecalhos e dados continuam sendo necessarios em ambos os metodos 'raw' e 'urlencoded'.
+
+
+
 
 
 
