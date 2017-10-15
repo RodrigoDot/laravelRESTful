@@ -217,6 +217,41 @@ public function show($id)
 Utilizamos ``with(['bank'])`` para executar a funcao ``bank`` criada na model ``Account`` e assim retornar os dados da relacao.  
 
 
+## Aprimoramento do relacionamento
+
+A funcao de relacionamento anterior funcionava perfeitamente quando e requisitado atraves do controller ``accounts``, ja que a tabela ``account`` tem um relacionamento com a tabela ``bank``. Mas quando requisitamos atraves do controler ``banks`` isso gera um erro ja que ``bank`` nao tem um relacionamento com a tabela ``account`` diretamente. Logo teremos que modificar o sistema de relacionamento para identificar essas diferencas.
+
+Va ate ``app/http/api/AccountsController.php`` e adicione o seguinte codigo logo apos a variavel protegida ``$model``.
+```php
+protected $relationships = ['bank'];
+```
+Aqui adicionamos um novo atributo ``$relationships`` que recebe o valor padrao ``['bank']`` que corresponde a tabela ``bank`` que queremos buscar os registro relacionados quando fizermos uma requisicao na tabela ``acount``.
+
+Agora va ate ``app/http/Controllers/AccountsController.php`` e altere a action "show" para ficar da seguinte forma.
+```php
+public function show($id)
+{
+  $data = $this->model->with($this->relationships())
+    ->findOrFail($id);
+
+    return response()->json($data);
+}
+```
+Dentro do metodo ``with()`` foi alterado o parametro passado que antes era ``['bank']`` e agora e uma chamada a um novo metodo ``relationships()`` que ainda iremos criar.
+
+Agora no fim desse mesmo arquivo adicione o seguinte codigo.
+```php
+public function relationships() {
+  if(isset($this->relationships)) {
+    return $this->relationships;
+  }else {
+    return [];
+  }
+}
+```
+Esse metodo verifica se o metodo ``relationships()`` retorna algum valor valido, que no caso seria o valor declarado na variavel protegida ``protected $relationships = ['bank'];`` declarada dentro do arquivo correspondente ao controller de "Accounts" . caso ele retorne um valor valido, esse valor e utilizado para fazer uma requisicao que retorna registros do banco, caso nao exista valor ele nao retornara nada, assim quando executamos esse codigo pelo controller ``banks``, esse metodo nao retorna nada ja que nao declaramos nenhuma variavel ``$relationships`` nesse controller.
+
+
 ### REQUISICOES
 
 #### GET
