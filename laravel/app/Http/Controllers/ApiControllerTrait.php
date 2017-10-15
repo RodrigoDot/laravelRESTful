@@ -44,6 +44,7 @@ trait ApiControllerTrait {
           return $query;
         })
         ->where($where)
+        ->with($this->relationships())
         ->paginate($limit);
       return response()->json($data);
   }
@@ -81,7 +82,8 @@ trait ApiControllerTrait {
    */
   public function show($id)
   {
-    $data = $this->model->with(['bank'])->findOrFail($id);
+    $data = $this->model->with($this->relationships())
+      ->findOrFail($id);
 
       return response()->json($data);
   }
@@ -116,6 +118,14 @@ trait ApiControllerTrait {
 
       return response()->json(['status' => 'resgistro deletado']);
 
+  }
+
+  public function relationships() {
+    if(isset($this->relationships)) {
+      return $this->relationships;
+    }else {
+      return [];
+    }
   }
 
 }
