@@ -252,6 +252,25 @@ public function relationships() {
 Esse metodo verifica se o metodo ``relationships()`` retorna algum valor valido, que no caso seria o valor declarado na variavel protegida ``protected $relationships = ['bank'];`` declarada dentro do arquivo correspondente ao controller de "Accounts" . caso ele retorne um valor valido, esse valor e utilizado para fazer uma requisicao que retorna registros do banco, caso nao exista valor ele nao retornara nada, assim quando executamos esse codigo pelo controller ``banks``, esse metodo nao retorna nada ja que nao declaramos nenhuma variavel ``$relationships`` nesse controller.
 
 
+## Desenvolvendo a autenticacao
+
+Primeiro instalamos o "Passport"
+```php
+composer require laravel/passport
+```
+Agora va ate ``config/app.php`` e registre o servico.
+```php
+
+```
+
+
+
+
+
+
+
+
+
 ### REQUISICOES
 
 #### GET
