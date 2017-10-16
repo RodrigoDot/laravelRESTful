@@ -274,9 +274,30 @@ Ao executar o "install" o passport ira gerar alguns ID's e algumas senhas que de
 Pronto agora temos nossas tabelas e tudo pronto para comecar trabalhar com o Passport.
 
 
+## configurando o Passport
+
+Va ate ``app/User.php`` e adicione uma chamada para o namespace do Passport.
+```php
+use Laravel\Passport\HasApiTokens;
+```
+Essa classe sera utilizada como uma Trait assim como fizemos com o controller da nossa API. Para isso dentro da classe ``User`` adicione ``HasApiTokens`` ao lado de ``Notifiable``.
+
+Agra va ate ``config/auth.php`` e navegue a te encontrar um array de configuracoes chamado ``guards``. Haverao dois elementos, "web" e "api" cada um define as configuracoes de suas respectivas plataformas. Aqui iremos alterar o valor do elemento "DRIVER" de "tokens" para "passport".  
 
 
-
+Agora precisamos carregar o servico para monitorar nossas rotas.
+Va ate ``app/providers/AuthServiceProvider.php``. Primeiro carregaremos o passport atraves de uma chamada ao seu namespace.
+```php
+use Laravel\Passport\Passport;
+```  
+Agora dentro do metodo ``boot`` faremos uma chamada ao metodo ``routes()`` da classe Passport que carregamos acima. O codigo do metodo ficara assim:
+```php
+public function boot()
+{
+  $this->registerPolicies();
+  Passport::routes();
+}
+```
 
 
 
