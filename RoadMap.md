@@ -419,6 +419,7 @@ Primeiro de tudo, como estamos utilizando o Auth para interceptar a rota, precis
 Utilizando o POSTMAN, selecionaremos o metodo POST e o metodo de envio ``x-www-form-urlencoded`` para enviar alguns dados no body para que o Passport valide o usuario sao eles:
 
 **Dados passados no body**
+
 | Chave | Valor |
 | - | - |
 | grant_type | password |
@@ -426,17 +427,18 @@ Utilizando o POSTMAN, selecionaremos o metodo POST e o metodo de envio ``x-www-f
 | client_secret | sdffwlkrkjdsklfewf |
 | username | rodrigo |
 | password | 123456 |
-| scope |  |
+| scope | vazio |
 
 **O que representam as chaves e os valores**
+
 | chave | o que e |
 | - | - |
-| grant_type |  e o campo que sera usado para autenticar |
-| client_id |  e o id do cliente gerado pelo Passport no ato da instalacao |
-| client_secret |  e a senha gerada pelo Passport no ato da instalacao |
-| username |  email do usuario registrado na aplicacao |
-| password |  senha do usuario |
-| scope |   |
+| grant_type | e o campo que sera usado para autenticar |
+| client_id | e o id do cliente gerado pelo Passport no ato da instalacao |
+| client_secret | e a senha gerada pelo Passport no ato da instalacao |
+| username | email do usuario registrado na aplicacao |
+| password | senha do usuario |
+| scope | vazio |
 
 Apos configurarmos os dados necessarios, basta requisitar nosso token para ter acesso a aplicacao. Por padrao a rota que deve ser acessada para isso e ``localhost:8000/oauth/token`` basta enviar um POST seguindo as instrucoes acima.
 
