@@ -282,7 +282,7 @@ use Laravel\Passport\HasApiTokens;
 ```
 Essa classe sera utilizada como uma Trait assim como fizemos com o controller da nossa API. Para isso dentro da classe ``User`` adicione ``HasApiTokens`` ao lado de ``Notifiable``.
 
-Agra va ate ``config/auth.php`` e navegue a te encontrar um array de configuracoes chamado ``guards``. Haverao dois elementos, "web" e "api" cada um define as configuracoes de suas respectivas plataformas. Aqui iremos alterar o valor do elemento "DRIVER" de "tokens" para "passport".  
+Agra va ate ``config/auth.php`` e navegue a te encontrar um array de configuracoes chamado ``guards``. Haverao dois elementos, "web" e "api" cada um define as configuracoes de suas respectivas plataformas. Aqui iremos alterar o valor do elemento "DRIVER" de "tokens" para "passport" no elemento "API".  
 
 
 Agora precisamos carregar o servico para monitorar nossas rotas.
