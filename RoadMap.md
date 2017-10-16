@@ -258,10 +258,24 @@ Primeiro instalamos o "Passport"
 ```php
 composer require laravel/passport
 ```
-Agora va ate ``config/app.php`` e registre o servico.
+Agora va ate ``config/app.php`` e registre o servico. Digite o seguinte codigo dentro do array da ``providers``.
 ```php
-
+Laravel\Passport\PassportServiceProvider::class,        
 ```
+Apos baixados os arquivos do Passport ele ira gerar algumas tabelas de Migrations que devem ser criadas no banco. Para isso execute o seguinte comando.
+```php
+php artisan migrate
+```
+O proximo passo e instalar o Passport. Para isso execute  o seguinte codigo.
+```php
+php artisan passport:install
+```
+Ao executar o "install" o passport ira gerar alguns ID's e algumas senhas que devem ser salvas em um lugar para que voce possa utilizar depois.
+Pronto agora temos nossas tabelas e tudo pronto para comecar trabalhar com o Passport.
+
+
+
+
 
 
 
