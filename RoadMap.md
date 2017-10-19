@@ -333,6 +333,7 @@ Verifique na sessao de REQUISICOES como realiza-las apos adicionar o Passport.
 
 ## Resolvendo problemas de CORS
 
+Erros de CORS acontecem quando voce tenta acessar um servidor atraves de outro servidor externo. Para resolver esse problema precisamos realizar algumas configuracoes no Laravel para que isso seja permitido.
 
 
 
