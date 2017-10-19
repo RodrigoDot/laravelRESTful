@@ -252,10 +252,86 @@ public function relationships() {
 Esse metodo verifica se o metodo ``relationships()`` retorna algum valor valido, que no caso seria o valor declarado na variavel protegida ``protected $relationships = ['bank'];`` declarada dentro do arquivo correspondente ao controller de "Accounts" . caso ele retorne um valor valido, esse valor e utilizado para fazer uma requisicao que retorna registros do banco, caso nao exista valor ele nao retornara nada, assim quando executamos esse codigo pelo controller ``banks``, esse metodo nao retorna nada ja que nao declaramos nenhuma variavel ``$relationships`` nesse controller.
 
 
+## Desenvolvendo a autenticacao
+
+Primeiro instalamos o "Passport"
+```php
+composer require laravel/passport
+```
+Agora va ate ``config/app.php`` e registre o servico. Digite o seguinte codigo dentro do array da ``providers``.
+```php
+Laravel\Passport\PassportServiceProvider::class,        
+```
+Apos baixados os arquivos do Passport ele ira gerar algumas tabelas de Migrations que devem ser criadas no banco. Para isso execute o seguinte comando.
+```php
+php artisan migrate
+```
+O proximo passo e instalar o Passport. Para isso execute  o seguinte codigo.
+```php
+php artisan passport:install
+```
+Ao executar o "install" o passport ira gerar alguns ID's e algumas senhas que devem ser salvas em um lugar para que voce possa utilizar depois.
+Pronto agora temos nossas tabelas e tudo pronto para comecar trabalhar com o Passport.
 
 
+## configurando o Passport
+
+Va ate ``app/User.php`` e adicione uma chamada para o namespace do Passport.
+```php
+use Laravel\Passport\HasApiTokens;
+```
+Essa classe sera utilizada como uma Trait assim como fizemos com o controller da nossa API. Para isso dentro da classe ``User`` adicione ``HasApiTokens`` ao lado de ``Notifiable``.
+
+Agra va ate ``config/auth.php`` e navegue a te encontrar um array de configuracoes chamado ``guards``. Haverao dois elementos, "web" e "api" cada um define as configuracoes de suas respectivas plataformas. Aqui iremos alterar o valor do elemento "DRIVER" de "tokens" para "passport" no elemento "API".  
 
 
+Agora precisamos carregar o servico para monitorar nossas rotas.
+Va ate ``app/providers/AuthServiceProvider.php``. Primeiro carregaremos o passport atraves de uma chamada ao seu namespace.
+```php
+use Laravel\Passport\Passport;
+```  
+Agora dentro do metodo ``boot`` faremos uma chamada ao metodo ``routes()`` da classe Passport que carregamos acima. O codigo do metodo ficara assim:
+```php
+public function boot()
+{
+  $this->registerPolicies();
+  Passport::routes();
+}
+```
+
+
+## Ativando o registro de usuarios
+
+O servico de usuarios (AUTH) nao precisa do Passport para funcionar, ele e uma ferramenta padrao do Laravel Framework. Ou seja voce pode usar mesmo sem o Passport.
+Execute o seguinte comando.
+```php
+php artisan make:auth
+```
+Com esse comando o Artisan gera todos os arquivos necessarios para que voce possa cadastrar e manipular os registros de usuarios. basta acessar a url ``localhost:8000/`` e voce vera os links do canto superior direito da tela.
+
+
+## Configuracoes de rotas para o Passport
+
+Agora vamos configurar as rotas para que o Passport possa ter acesso ao que e acessado dentro da aplicacao atraves das rotas e garante assim o controle do acesso para as areas da aplicacao de acordo com as configuracoes de acesso.
+
+Va ate ``routes/api.php`` e altere as rotas digitadas para ficar da seguinte forma.
+```php
+Route::group(['middleware' => ['auth:api']], function() {
+      Route::middleware('auth:api')->get('/user', function (Request $request) {
+          return $request->user();
+      });
+
+      Route::resource('/banks', 'Api\BanksController');
+      Route::resource('/accounts', 'Api\AccountsController');
+    }
+);
+```
+Dessa forma o Passport podera verificar se ha usuario logado e se esse usuairo tem permissao para acessar as rotas dentro desse grupo de rotas.
+
+Verifique na sessao de REQUISICOES como realiza-las apos adicionar o Passport.
+
+
+## Resolvendo problemas de CORS
 
 
 
@@ -332,6 +408,51 @@ Para deletar dados do banco utilizamos o metodo http delete. Aqui junto com a ur
 ]
 ```
 
+
+## Requisicoes Passport
+
+#### Requisitar token de acesso
+
+Com o Passport devidamente instalado e com todas as suas configuracoes corretas, nos basta fazer requisicoes. Funciona da seguinte forma, faremos uma requisicao ao servidor utilizando um dos ID's e senha gerados na instalacao do Passport para conseguir um token para que com ele possamos ter acesso a API e assim consumir os dados por ela providos.
+
+Primeiro de tudo, como estamos utilizando o Auth para interceptar a rota, precisamos requisitar um token para que ele libere o acesso aos dados.
+
+Utilizando o POSTMAN, selecionaremos o metodo POST e o metodo de envio ``x-www-form-urlencoded`` para enviar alguns dados no body para que o Passport valide o usuario sao eles:
+
+**Dados passados no body**
+
+| Chave | Valor |
+| - | - |
+| grant_type | password |
+| client_id | 2 |
+| client_secret | sdffwlkrkjdsklfewf |
+| username | rodrigo |
+| password | 123456 |
+| scope | vazio |
+
+**O que representam as chaves e os valores**
+
+| chave | o que e |
+| - | - |
+| grant_type | e o campo que sera usado para autenticar |
+| client_id | e o id do cliente gerado pelo Passport no ato da instalacao |
+| client_secret | e a senha gerada pelo Passport no ato da instalacao |
+| username | email do usuario registrado na aplicacao |
+| password | senha do usuario |
+| scope | vazio |
+
+Apos configurarmos os dados necessarios, basta requisitar nosso token para ter acesso a aplicacao. Por padrao a rota que deve ser acessada para isso e ``localhost:8000/oauth/token`` basta enviar um POST seguindo as instrucoes acima.
+
+
+#### Requisicoes Passport
+
+A unica mudanca em relacao as requisicoes que faziamos antes sem o Passport ativado e que agora precisaremos enviar na requisicao um header ``Authorization`` com o valor do token recebido pelo servidor precedido pelo tipo do token, exemplo ``Bearer flfsase54f45fwf5fwf``. Fica assim:
+
+| chave | valor |
+| - | - |
+| Authorization | Bearer dfdfsf4sfs545sf54 |
+
+Com isso configurado basta realizar as requisicoes como eram realizadas anteriormente ao Passport.
 
 
 
