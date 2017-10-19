@@ -331,6 +331,7 @@ Dessa forma o Passport podera verificar se ha usuario logado e se esse usuairo t
 Verifique na sessao de REQUISICOES como realiza-las apos adicionar o Passport.
 
 
+## Resolvendo problemas de CORS
 
 
 
@@ -452,6 +453,7 @@ A unica mudanca em relacao as requisicoes que faziamos antes sem o Passport ativ
 | Authorization | Bearer dfdfsf4sfs545sf54 |
 
 Com isso configurado basta realizar as requisicoes como eram realizadas anteriormente ao Passport.
+
 
 
 
