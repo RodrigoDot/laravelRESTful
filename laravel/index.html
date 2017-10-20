@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <title>Index</title>
+  </head>
+  <body>
+    <script>
+      var xmlhttp = new XMLHttpRequest();
+
+      xmlhttp.onreadystatechange = function() {
+        if(xmlhttp.readystate == XMLHttpRequest.DONE) {
+          console.log(xmlhttp.status, xmlhttp.responseText);
+        }
+      }
+
+      xmlhttp.open('GET', 'http://localhost:8000/api/accounts');
+      xmlhttp.setRequestHeader('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImNjMGJlZDk0ODY3NjljNzMzZDVhMzdkYjk2ZDEwNDIzZTk3MTkzZDE2YTI3ODY4MDRlMTU5MjAwNGU1MDZkMmE5OTUzZWI1NzIzY2RhOTIzIn0.eyJhdWQiOiIyIiwianRpIjoiY2MwYmVkOTQ4Njc2OWM3MzNkNWEzN2RiOTZkMTA0MjNlOTcxOTNkMTZhMjc4NjgwNGUxNTkyMDA0ZTUwNmQyYTk5NTNlYjU3MjNjZGE5MjMiLCJpYXQiOjE1MDgxNzc3NTksIm5iZiI6MTUwODE3Nzc1OSwiZXhwIjoxNTM5NzE3MzU5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.re_PW3pFu2cxsFSAx8CX58bNS3A18L5d4oLaiff8KtB6yv9zdoqQ563ia8CJkjcjZ2o2HZiQ2tnVN2wYP6DB6h37tzefeWP5qQos5meQMfYIWx8XKC_a4YCAF1vruSQOp9KV5t-FHdRSOZEiMHU_aYH_1Nd5VvX7OMTVWyN0sO7eWLmWcsBugtlANJKQrJsEgrltnSS8Dd0BltXQouoH0qDPFavr8CWXDM-ZBV8z1tzQ0jvjxKUIiuHi8Z6sHtOIrMq0V9p4DcsniuAZJYRhPvh3yYmEOc18jpwergzy28Yny6YTidcdsF3Kg18hNQcbsreicATxXuxac-JqOlnPX_7RHZdj-y6yqF45c8KRiN9uyrho-bVIIZIh_w_M5V_jF0QzpFQeFu1Sp5EAKp9jxR58_w9H0PHmuzI1rLWtXHudIaJKmuYEKAHYOemKgjEYNy1EayR1Q7_AcbjTI_DOXwxV9uup7aqkTQBo07cafZC6_lgxhN5HlU1V61nPX1UO8yGZ3Dtn-w_eyxp5vPQe9hWYoDyU4bBLOYpG4MabUPXPIMdz5AsQsqkSx7KPYW56eSAtgdPcXwocLEtDcuIl1_yRfsBv2a-9D5Ta7qgZsCiqqwKQ_CvPaUkRQagFrhFP0EvHs4APXndlcId_YVpEdU7MkDknEpt0hpnZierCIyA');
+      xmlhttp.send();
+    </script>
+  </body>
+</html>
