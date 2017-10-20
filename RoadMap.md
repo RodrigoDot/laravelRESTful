@@ -360,34 +360,45 @@ Va ate ``/app/http/kernel.php`` e adicione ``'cors' => \Barryvdh\Cors\HandleCors
 
 #### GET
 
-* requisicao get para listas dados utilizando a action index
+Requisicao get para listas dados utilizando a action index
+
 ``/banks``
 
-* requisicao get para visualizar apenas um registro utilizando a action show
+Requisicao get para visualizar apenas um registro utilizando a action show
+
 ``/banks/2``  >>  controller/id
 
-* requisicao get com limitador
+Requisicao get com limitador
+
 ``/bank?limit=10``
 
-* requisicao get com ordenacao
+Requisicao get com ordenacao
+
 ``/banks?id,asc`` >> campo,ordem
+
 ``/banks?id,desc``
+
 ``/banks?code,asc``
+
 ``/banks?code,desc``
 
-* requisicao get combinada limite e ordenacao
+Requisicao get combinada limite e ordenacao
+
 ``/bank?limit=10&order=id,desc``
 
-* requisicao get por campo especifico (where)
+Requisicao get por campo especifico (where)
+
 ``/banks?where[id]=2``  >> where[campo]=valor
 
-* requisicao get usando like
+Requisicao get usando like
+
 ``/banks?like=title,teste`` >> like=campo,valor
 
 
 #### POST
 
-* requisicao post para inserir um banco
+Requisicao post para inserir um banco
+
 ``/api/banks``  >> prefixo/controller
 Opcao 1 - Utilizando o POSTMAN basta selecionar a opcao 'POST' e o formato de envio 'x-www-form-urlencoded' e depois preencher os campos que devem ser salvos no banco de dados Utilizando as opcoes chave = valor na opcao 'BODY' do POSTMAN.
 
@@ -409,7 +420,8 @@ Que podem ser passados na area de 'headers' do POSTMAN. E ainda e necessario pas
 
 #### PUT
 
-* requisicao put para atualizacao de dados no banco de dados
+Requisicao put para atualizacao de dados no banco de dados
+
 ``/api/banks/2``  >> prefixo/controller/id
 
 Para atualizar os dados fazemos basicamente o mesmo processo de quando estamos inserindo dados no banco, a diferenca e que aqui utilizamos o metodo htttp PUT e passamos o id do registro a ser atualizado. No mais todos os procedimentos sao os mesmos que na insercao de dados. Cabecalhos e dados continuam sendo necessarios em ambos os metodos 'raw' e 'urlencoded'.
@@ -417,7 +429,8 @@ Para atualizar os dados fazemos basicamente o mesmo processo de quando estamos i
 
 #### DELETE
 
-* requisicao delete para deletar dados no banco de dados
+Requisicao delete para deletar dados no banco de dados
+
 ``api/banks/2``  >> prefixo/controller/id
 
 Para deletar dados do banco utilizamos o metodo http delete. Aqui junto com a url so precisamos passar o cabecalho  
