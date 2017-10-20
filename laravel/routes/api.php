@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
+/* ATE ANTES DO CORS
 Route::group([
   'middleware' =>
     [
@@ -23,6 +24,18 @@ Route::group([
       Route::middleware('auth:api')->get('/user', function (Request $request) {
           return $request->user();
       });
+
+      Route::resource('/banks', 'Api\BanksController');
+      Route::resource('/accounts', 'Api\AccountsController');
+    }
+);
+*/
+
+//DEPOIS DO CORS
+Route::group(['middleware' => ['cors', 'auth:api']], function() {
+      Route::get('/user', function (Request $request) {
+          return $request->user();
+      })->middleware('auth:api');
 
       Route::resource('/banks', 'Api\BanksController');
       Route::resource('/accounts', 'Api\AccountsController');

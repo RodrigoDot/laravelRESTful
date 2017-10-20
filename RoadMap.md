@@ -333,8 +333,27 @@ Verifique na sessao de REQUISICOES como realiza-las apos adicionar o Passport.
 
 ## Resolvendo problemas de CORS
 
+Erros de CORS acontecem quando voce tenta acessar um servidor atraves de outro servidor externo. Para resolver esse problema precisamos realizar algumas configuracoes no Laravel para que isso seja permitido.
 
-
+Para fazer isso podemos configurar o Apache ou o webserver que estamos usando, mas aqui faremos utilizando um plugin.
+```php
+composer require barryvdh/laravel-cors
+```
+Uma vez instalado o plugin va ate ``/config/app.php`` e adicione o seguinte codigo dentro do array de providers.
+```php
+Barryvdh\Cors\ServiceProvider::class,
+```
+Agora precisamos gerar os arquivos de configuracao do cors.
+```php
+php artisan vendor:publish --provider="Barryvdh\Cors\ServiceProvider"
+```
+Por ultimo va ate ``/routes/api.php`` para adicionar o middleware que rodara antes do auth para evitar que aconteca o erro de cors. Dentro do grupo de rotas da sua api altere a seguinte linha.
+```php
+Route::group([
+  'middleware' => ['cors', 'auth:api']
+  ]
+```
+Va ate ``/app/http/kernel.php`` e adicione ``'cors' => \Barryvdh\Cors\HandleCors::class,`` dentro do array "$routeMiddleware".
 
 
 ### REQUISICOES
